@@ -3,6 +3,7 @@ import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import cors from "cors";
 import booksRoute from "./routes/booksRoute.js";
+require("dotenv").config();
 
 const app = express();
 
@@ -20,6 +21,7 @@ app.use(
     origin: "http://localhost:3000",
     methods: ["GET", "POST", "PUT", "DELETE"],
     allowedHeaders: ["Content-Type"],
+    credentials: true,
   })
 );
 
