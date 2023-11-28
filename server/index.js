@@ -3,18 +3,14 @@ import { PORT, mongoDBURL } from "./config.js";
 import mongoose from "mongoose";
 import cors from "cors";
 import booksRoute from "./routes/booksRoute.js";
-require("dotenv").config();
+import userRoute from "./routes/authRoute.js";
 
 const app = express();
+app.use(express.json());
 
 app.get("/", (request, response) => {
   return response.status(234).send("get done");
 });
-
-app.use(express.json());
-app.use("/books", booksRoute);
-
-// app.use(cors());
 
 app.use(
   cors({
@@ -24,6 +20,11 @@ app.use(
     credentials: true,
   })
 );
+
+app.use("/books", booksRoute);
+app.use("/users", userRoute);
+
+
 
 mongoose
   .connect(mongoDBURL)
