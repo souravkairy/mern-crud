@@ -22,7 +22,7 @@ import {
 
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
 
-export default function DataTable() {
+export default function DataTable({ data }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
   return (
     <div className="px-4 sm:px-6 lg:px-8">
@@ -62,13 +62,7 @@ export default function DataTable() {
                     scope="col"
                     className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
                   >
-                    CreatedBy
-                  </th>
-                  <th
-                    scope="col"
-                    className="px-3 py-3.5 text-left text-sm font-semibold text-gray-900"
-                  >
-                    Role
+                    Created By
                   </th>
                   <th scope="col" className="relative py-3.5 pl-3 pr-4 sm:pr-0">
                     <span className="sr-only">Edit</span>
@@ -76,20 +70,18 @@ export default function DataTable() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-200">
-                {people.map((person) => (
-                  <tr key={person.email}>
+                {data.map((item, index) => (
+                  <tr key={index}>
                     <td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-0">
-                      {person.name}
+                      {item.title}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {person.title}
+                      {item.author}
                     </td>
                     <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {person.email}
+                      {item.publishYear}
                     </td>
-                    <td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
-                      {person.role}
-                    </td>
+
                     <td className="relative whitespace-nowrap py-4 pl-3 pr-4 text-right text-sm font-medium sm:pr-0 space-x-3">
                       <button className="border border-blue-500 p-2">
                         <PencilSquareIcon className="h-5 w-5 text-blue-500" />
