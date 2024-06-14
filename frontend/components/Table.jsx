@@ -28,16 +28,16 @@ export default function DataTable() {
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
         <div className="sm:flex-auto">
-          <h1 className="text-base font-semibold leading-6 text-gray-900">
-            Books
-          </h1>
+          <h1 className="text-4xl font-semibold text-gray-900">Books</h1>
           <p className="mt-2 text-sm text-gray-700">
             A list of all the users in your account including their title,
             author and created at.
           </p>
         </div>
         <div className="mt-4 sm:ml-16 sm:mt-0 sm:flex-none">
-          <Button onPress={onOpen}>Open Modal</Button>
+          <Button color="primary" radius="none" onPress={onOpen}>
+            Open Modal
+          </Button>
         </div>
       </div>
       <div className="mt-8 flow-root">
@@ -106,7 +106,7 @@ export default function DataTable() {
         </div>
       </div>
 
-      <Modal isOpen={isOpen} onOpenChange={onOpenChange}>
+      <Modal isOpen={isOpen} onOpenChange={onOpenChange} radius="none">
         <ModalContent>
           {(onClose) => (
             <form action="">
@@ -114,23 +114,31 @@ export default function DataTable() {
                 Add Book
               </ModalHeader>
               <ModalBody>
-                <Input radius="sm"
+                <Input
+                  radius="none"
                   type="text"
                   label="Book Title"
                   placeholder="Enter Book Title"
                 />
-                <Input radius="sm"
+                <Input
+                  radius="none"
                   type="text"
                   label="Book Author"
                   placeholder="Enter name"
                 />
-                <DatePicker radius="sm" label="Created At" />
+                <DatePicker radius="none" label="Created At" />
               </ModalBody>
               <ModalFooter>
-                <Button color="danger" variant="light" onPress={onClose}>
+                <Button
+                  color="danger"
+                  className="bg-red-100"
+                  radius="none"
+                  variant="light"
+                  onPress={onClose}
+                >
                   Close
                 </Button>
-                <Button color="primary" type="submit">
+                <Button color="primary" radius="none" type="submit">
                   Submit
                 </Button>
               </ModalFooter>
