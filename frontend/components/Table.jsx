@@ -21,9 +21,31 @@ import {
 } from "@nextui-org/react";
 
 import { PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
+import { useState } from "react";
 
 export default function DataTable({ data }) {
   const { isOpen, onOpen, onOpenChange } = useDisclosure();
+  const [formData, setFormData] = useState({
+    title: "",
+    author: "",
+    publishYear: "",
+  });
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log(formData);
+
+    // onClose()
+  };
+
   return (
     <div className="px-4 sm:px-6 lg:px-8">
       <div className="sm:flex sm:items-center">
@@ -101,7 +123,7 @@ export default function DataTable({ data }) {
       <Modal isOpen={isOpen} onOpenChange={onOpenChange} radius="none">
         <ModalContent>
           {(onClose) => (
-            <form action="">
+            <form onSubmit={handleSubmit}>
               <ModalHeader className="flex flex-col gap-1">
                 Add Book
               </ModalHeader>
@@ -110,15 +132,27 @@ export default function DataTable({ data }) {
                   radius="none"
                   type="text"
                   label="Book Title"
+                  name="title"
                   placeholder="Enter Book Title"
+                  value={formData.title}
+                  onChange={handleChange}
                 />
                 <Input
                   radius="none"
                   type="text"
                   label="Book Author"
+                  name="author"
                   placeholder="Enter name"
+                  value={formData.author}
+                  onChange={handleChange}
                 />
-                <DatePicker radius="none" label="Created At" />
+                <DatePicker
+                  radius="none"
+                  name="publishYear"
+                  label="Created At"
+                  //   value={formData?.publishYear || '03/23/2024'}
+                  onChange={handleChange}
+                />
               </ModalBody>
               <ModalFooter>
                 <Button
