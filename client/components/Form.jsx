@@ -1,6 +1,10 @@
 "use client";
 import React from "react";
 import { useForm } from "react-hook-form";
+import { useAtom } from "jotai";
+import { userInfo } from "../utils/Atoms";
+import { useRouter } from "next/navigation";
+import toast from "react-hot-toast";
 
 const Form = () => {
   const {
@@ -9,16 +13,34 @@ const Form = () => {
     formState: { errors },
   } = useForm();
 
+  const [user, setUser] = useAtom(userInfo);
+  const router = useRouter();
+
   const onSubmit = async (data) => {
-    const response = await fetch("http://localhost:5555/users", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    const json = await response.json();
-    console.log(json);
+    try {
+      const response = await fetch("http://localhost:5555/users", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(data),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json();
+        console.error("Error:", errorData);
+        return;
+      }
+
+      const json = await response.json();
+      setUser(json);
+      toast.success("added");
+      router.push("/");
+
+      console.log(json);
+    } catch (error) {
+      console.error("Network error:", error);
+    }
   };
 
   return (
